@@ -20,15 +20,17 @@
 
   <div class="row">
     <!-- Left col -->
-    <section class="container">      
+    <section class="container" style="text-align: center;">      
       
         <h1>DOn't want frogs? remove them</h1>
+        <br>
         <form method="GET" action="/admin/graph">
           <input type="text" name="rose" id="rose" class="input">
           <button type="submit">Replace Frogs</button>
         </form>
+        <br><br>
          {%if mygraph %}
-      <img src="{{mygraph}}" class="img img-responsive">
+      <img src="{{mygraph}}" class="img img-responsive img-center" align="center" style="position:relative;margin: auto;" >
       {% endif %}
 
     </section>

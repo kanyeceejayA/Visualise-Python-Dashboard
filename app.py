@@ -110,33 +110,34 @@ class CustomView(BaseView):
 class GraphView(BaseView):
     @expose('/')
     def index(self):
-        # fig = Figure()
-        # axis = fig.add_subplot(1, 1, 1)
-
-        # xs = range(100)
-        # ys = [random.randint(1, 50) for x in xs]
-
-        # axis.plot(xs, ys)
-        # canvas = FigureCanvas(fig)
-        # output = io.BytesIO()
-        # canvas.print_png(output)
-        # response = make_response(output.getvalue())
-        # response.mimetype = 'image/png'
         from pylab import figure, axes, pie, title, show
+        import pandas as pd
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        import numpy as np
+        from sklearn.datasets import load_breast_cancer
+        sns.set()
+        data = load_breast_cancer()
+        breast_cancer_df = pd.DataFrame(data['data'])
+        breast_cancer_df.columns = data['feature_names']
+        breast_cancer_df['target'] = data['target']
+        breast_cancer_df['diagnosis'] = [data['target_names'][x] for x in data['target']]
+        sns.set()
+        corr = breast_cancer_df[list(data['feature_names'])].corr(method='pearson')
 
-        # Make a square figure and axes
-        figure(1, figsize=(6, 6))
-        ax = axes([0.1, 0.1, 0.8, 0.8])
-        # if request.method == 'GET':
-        #     frogs = request.form['rose']
-        # if frogs == '':
-        #     frogs='frogs'
-        labels = "frogs", 'Hogs', 'Dogs', 'Logs'
-        fracs = [15, 30, 45, 10]
+        f, ax = plt.subplots(figsize=(11, 9))
+        cmap = sns.diverging_palette(220, 10, as_cmap=True)
+        mask = np.zeros_like(corr, dtype=np.bool)
+        mask[np.triu_indices_from(mask)] = True
 
-        explode = (0, 0.05, 0, 0)
-        pie(fracs, explode=explode, labels=labels, autopct='%1.1f%%', shadow=True)
-        title('Raining Hogs and Dogs', bbox={'facecolor': '0.8', 'pad': 5})
+        sns.heatmap(corr,mask=mask, cmap=cmap, vmax=.3, center=0,
+                    square=True, linewidths=.5, cbar_kws={"shrink": .5})
+
+        # bytes_image = io.BytesIO()
+        # plt.savefig(bytes_image, format='png')
+        # bytes_image.seek(0)
+        # return bytes_image
+        
 
         plt.savefig('static/zimages.png', bbox_inches='tight')
         return self.render('admin/custom_index2.html', mygraph='../../static/zimages.png')
