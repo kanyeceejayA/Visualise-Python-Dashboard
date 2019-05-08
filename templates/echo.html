@@ -1,8 +1,8 @@
-<!doctype html>
-<title>Hello from Flask</title>
-
-  <h1>He said {{filename}}</h1>
-  	<img src="{{filename}}">
-
-
-  <h1>no image for whatever reason</h1>
+<form action="/echo" method="POST">
+<input name="text">
+<input type="submit" value="Echo">
+</form>
+ 
+{% if text %}
+  You said: {{ text }}
+{% endif %}
