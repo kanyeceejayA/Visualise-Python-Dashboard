@@ -21,5 +21,10 @@ Utilities:
 
 ### Uses
 
-Used as base for creating dashboards to visualise output from other files
+Used as base for creating dashboards to visualise output from python scripts.
+So far, have used it to display and manipulate housing price predictions using a python script and a responsive table in the foreground
+
+### Future Plans:
+
+- Adding new ways of getting input to manipulate scripts in the backend
 
