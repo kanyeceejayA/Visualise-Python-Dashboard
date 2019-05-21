@@ -146,11 +146,6 @@ class GraphView(BaseView):
 class ImgView(BaseView):
     @expose('/')
     def index(self):
-        import selector
-        
-        
-
-        plt.savefig('static/zimages.png', bbox_inches='tight')
         return self.render('admin/custom_index2.html', mygraph='../../static/zimages.png')
 
 # Flask views
