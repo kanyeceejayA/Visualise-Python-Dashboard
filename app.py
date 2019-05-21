@@ -142,6 +142,17 @@ class GraphView(BaseView):
         plt.savefig('static/zimages.png', bbox_inches='tight')
         return self.render('admin/custom_index2.html', mygraph='../../static/zimages.png')
 
+
+class ImgView(BaseView):
+    @expose('/')
+    def index(self):
+        import selector
+        
+        
+
+        plt.savefig('static/zimages.png', bbox_inches='tight')
+        return self.render('admin/custom_index2.html', mygraph='../../static/zimages.png')
+
 # Flask views
 @app.route('/')
 def index():
@@ -159,6 +170,7 @@ admin = flask_admin.Admin(
 admin.add_view(MyModelView(Role, db.session, menu_icon_type='fa', menu_icon_value='fa-server', name="Roles"))
 admin.add_view(UserView(User, db.session, menu_icon_type='fa', menu_icon_value='fa-users', name="Users"))
 admin.add_view(GraphView(name="Matplotlib Graph", endpoint='graph', menu_icon_type='fa', menu_icon_value='fa-connectdevelop',))
+admin.add_view(ImgView(name="Image Changer", endpoint='cv', menu_icon_type='fa', menu_icon_value='fa-connectdevelop',))
 admin.add_view(CustomView(name="Custom view", endpoint='custom', menu_icon_type='fa', menu_icon_value='fa-connectdevelop',))
 
 # define a context processor for merging flask-admin's template context into the

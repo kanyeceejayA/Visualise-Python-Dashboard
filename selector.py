@@ -1,16 +1,20 @@
-from flask import Flask, request
-app = Flask(__name__)
- 
+#!/usr/bin/python
+"""
+View and select images to focus on
+Copy images selected to different folder by press of button
+
+used for visual selection of appropriate images
+"""
 import cv2
 import glob
 import shutil
 import os
 
-IMAGE_PATH = 'C:\\Flask-Admin-Dashboard\\static\\img'
-IMG_DIR = 'screenshots'
-TO_DIR = 'good' #Create this folder in the icassava folder
-CROP_DIR = 'bad'
-WRONG_CLASS_DIR = 'other' #Create this folder in icassava folder
+IMAGE_PATH = '/'
+IMG_DIR = '1/'
+TO_DIR = 'good/' #Create this folder in the icassava folder
+CROP_DIR = 'bad/'
+WRONG_CLASS_DIR = 'other/' #Create this folder in icassava folder
 
 def move_file(filepath, from_dir=IMG_DIR, to_dir=TO_DIR):
 	"""
@@ -61,17 +65,3 @@ def mover():
 			continue
 
 
-@app.route("/")
-def hello():
-	mover()
-	return '<form action="/echo" method="POST"><input name="text"><input type="submit" value="Echo"></form>'
-
- 
-@app.route("/echo", methods=['POST'])
-def echo():
-    return "You said: " + request.form['text']
- 
- 
-
-if __name__ == "__main__":
-    app.run(debug=True)
